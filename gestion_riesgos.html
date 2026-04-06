@@ -1,0 +1,133 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans)}
+.slide{display:none;min-height:500px;padding:2.5rem 2.5rem 1.5rem}
+.slide.on{display:block}
+.pill{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;padding:4px 12px;border-radius:99px;background:#EEEDFE;color:#3C3489;margin-bottom:1.2rem}
+.big-q{font-size:21px;font-weight:500;color:var(--color-text-primary);line-height:1.35;margin-bottom:.4rem}
+.sub{font-size:13px;color:var(--color-text-tertiary);margin-bottom:1.8rem}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin-bottom:1.6rem}
+.row4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.4rem}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:1.4rem}
+.step-card{background:var(--color-background-secondary);border-radius:12px;padding:1rem}
+.step-num{font-size:11px;font-weight:500;color:#534AB7;margin-bottom:.5rem}
+.step-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem}
+.step-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.55}
+.b-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.1rem}
+.b-card-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:.4rem;letter-spacing:.04em}
+.b-card-val{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.5}
+.accent-bar{width:28px;height:3px;border-radius:2px;margin-bottom:.7rem}
+.bar-p{background:#7F77DD}
+.bar-t{background:#1D9E75}
+.callout{background:#EEEDFE;border-radius:10px;padding:.9rem 1.1rem;margin-top:.2rem}
+.callout p{font-size:13px;color:#3C3489;line-height:1.6;font-weight:500}
+.callout2{background:#E1F5EE;border-radius:10px;padding:.9rem 1.1rem;margin-top:.2rem}
+.callout2 p{font-size:13px;color:#085041;line-height:1.6;font-weight:500}
+.why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1.2rem}
+.why-item{background:var(--color-background-secondary);border-radius:10px;padding:.85rem 1rem}
+.why-icon{width:22px;height:22px;border-radius:6px;background:#E1F5EE;display:flex;align-items:center;justify-content:center;margin-bottom:.5rem}
+.why-icon svg{width:12px;height:12px}
+.why-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:.25rem}
+.why-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;padding:.9rem 2.5rem;border-top:0.5px solid var(--color-border-tertiary)}
+.nav-left{display:flex;gap:6px}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--color-border-secondary);cursor:pointer;transition:background .2s}
+.nav-dot.on{background:#7F77DD;width:18px;border-radius:3px}
+.nav-btns{display:flex;gap:8px}
+.nbtn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:6px 14px;font-size:12px;color:var(--color-text-secondary);cursor:pointer}
+.nbtn:hover{background:var(--color-background-secondary)}
+.nbtn:disabled{opacity:.3;cursor:default}
+.slide-label{font-size:11px;color:var(--color-text-tertiary)}
+</style>
+
+<div class="wrap">
+<div id="slides">
+
+  <div class="slide on" id="s0">
+    <div class="pill">Pregunta 1 de 2</div>
+    <div class="big-q">¿Cómo podemos gestionar los riesgos en una organización?</div>
+    <div class="sub">Gestionar riesgos implica seguir un ciclo continuo de cuatro etapas</div>
+    <div class="divider"></div>
+    <div class="row4">
+      <div class="step-card"><div class="step-num">Paso 01</div><div class="step-title">Identificar</div><div class="step-desc">Reconocer activos, determinar su valor y descubrir las vulnerabilidades y amenazas que los afectan.</div></div>
+      <div class="step-card"><div class="step-num">Paso 02</div><div class="step-title">Evaluar</div><div class="step-desc">Analizar probabilidad e impacto de cada riesgo. Clasificarlos en inherentes (sin controles) o residuales (con controles).</div></div>
+      <div class="step-card"><div class="step-num">Paso 03</div><div class="step-title">Responder</div><div class="step-desc">Implementar medidas: evitar, mitigar, transferir o aceptar el riesgo según su nivel y tolerancia organizacional.</div></div>
+      <div class="step-card"><div class="step-num">Paso 04</div><div class="step-title">Monitorear</div><div class="step-desc">Vigilar continuamente el ciclo y actualizar estrategias ante el contexto cambiante de amenazas.</div></div>
+    </div>
+    <div class="callout"><p>"La gestión de riesgos no es una receta fija — requiere criterio profesional adaptado a la cultura y realidad de cada organización."</p></div>
+  </div>
+
+  <div class="slide" id="s1">
+    <div class="pill">Pregunta 1 · detalle</div>
+    <div class="big-q">¿Qué tipos de vulnerabilidades se deben gestionar?</div>
+    <div class="sub">Las organizaciones enfrentan vulnerabilidades en cuatro dimensiones</div>
+    <div class="divider"></div>
+    <div class="row2">
+      <div class="b-card"><div class="accent-bar bar-p"></div><div class="b-card-label">Técnicas</div><div class="b-card-val">SO desactualizado, software sin parches, puertos abiertos, contraseñas débiles, protocolos inseguros.</div></div>
+      <div class="b-card"><div class="accent-bar bar-p"></div><div class="b-card-label">De red</div><div class="b-card-val">WiFi sin cifrado, mala configuración de firewall, falta de segmentación VLAN, ataques Man-in-the-Middle.</div></div>
+      <div class="b-card"><div class="accent-bar bar-t"></div><div class="b-card-label">Humanas</div><div class="b-card-val">Phishing, ingeniería social, compartir contraseñas, uso de USB desconocidos, falta de capacitación.</div></div>
+      <div class="b-card"><div class="accent-bar bar-t"></div><div class="b-card-label">Organizacionales</div><div class="b-card-val">Sin políticas de seguridad, sin backups, acceso físico no controlado, sin plan de continuidad.</div></div>
+    </div>
+    <div class="callout2"><p>"La vulnerabilidad es la puerta abierta; la amenaza es quien entra. Cerrar la puerta es la gestión."</p></div>
+  </div>
+
+  <div class="slide" id="s2">
+    <div class="pill">Pregunta 2 de 2</div>
+    <div class="big-q">¿Para qué es importante gestionar los riesgos en un proyecto?</div>
+    <div class="sub">Según el PMBOK, gestionar riesgos en proyectos TI tiene seis beneficios clave</div>
+    <div class="divider"></div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1" stroke="#0F6E56" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#0F6E56" stroke-width="1.2"/></svg></div>
+        <div class="why-title">Previene pérdidas</div>
+        <div class="why-desc">Evita pérdidas económicas, humanas y materiales antes de que ocurran.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="#0F6E56" stroke-width="1.2"/><path d="M6 3.5v2.5l1.5 1.5" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="why-title">Asegura continuidad</div>
+        <div class="why-desc">El proyecto no se detiene ante eventos no planificados o desastres.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 9l3-4 2 2 3-5" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="why-title">Reduce costos</div>
+        <div class="why-desc">Evita reparaciones costosas, retrasos y sobrecostos en la entrega.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1.5L7.5 5h3.5l-2.8 2 1 3.5L6 8.5 2.8 10.5l1-3.5L1 5h3.5z" stroke="#0F6E56" stroke-width="1.1"/></svg></div>
+        <div class="why-title">Genera confianza</div>
+        <div class="why-desc">Clientes e inversionistas confían en organizaciones con madurez en riesgos.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M6 1.5v9M2 6h8" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="why-title">Aumenta valor</div>
+        <div class="why-desc">Aumenta el impacto de eventos positivos y disminuye el de negativos.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" stroke="#0F6E56" stroke-width="1.2"/><path d="M4 6l1.5 1.5L8 4" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="why-title">Alineación estratégica</div>
+        <div class="why-desc">Los riesgos TI impactan directamente en los objetivos del negocio.</div>
+      </div>
+    </div>
+    <div class="callout2"><p>"Un proyecto preparado es un proyecto exitoso. Si falla la tecnología, falla el negocio."</p></div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <div class="nav-left" id="dots"></div>
+  <div class="slide-label" id="slabel">1 / 3</div>
+  <div class="nav-btns">
+    <button class="nbtn" id="pb" onclick="go(-1)" disabled>← Anterior</button>
+    <button class="nbtn" id="nb" onclick="go(1)">Siguiente →</button>
+  </div>
+</div>
+</div>
+
+<script>
+var cur=0,tot=3;
+var dc=document.getElementById('dots');
+for(var i=0;i<tot;i++){var d=document.createElement('div');d.className='nav-dot'+(i===0?' on':'');d.dataset.i=i;d.onclick=function(){gt(+this.dataset.i)};dc.appendChild(d);}
+function gt(n){document.getElementById('s'+cur).classList.remove('on');dc.children[cur].classList.remove('on');cur=n;document.getElementById('s'+cur).classList.add('on');dc.children[cur].classList.add('on');document.getElementById('pb').disabled=cur===0;document.getElementById('nb').disabled=cur===tot-1;document.getElementById('slabel').textContent=(cur+1)+' / '+tot;}
+function go(d){gt(Math.max(0,Math.min(tot-1,cur+d)));}
+</script>
