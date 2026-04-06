@@ -1,0 +1,189 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#7F77DD;--p-light:#EEEDFE;--p-dark:#3C3489;--t:#1D9E75;--t-light:#E1F5EE;--t-dark:#085041}
+.deck{font-family:var(--font-sans);width:100%}
+.slide{display:none;width:100%;padding:clamp(2rem,5vw,4rem) clamp(1.5rem,5vw,4rem)}
+.slide.on{display:block}
+
+.cover{background:#EEEDFE;min-height:clamp(360px,55vw,580px);display:none;flex-direction:column;justify-content:space-between;border-radius:16px;padding:clamp(2rem,5vw,4rem)}
+.cover.on{display:flex}
+.cover-top{display:flex;align-items:center;justify-content:space-between}
+.course-badge{font-size:clamp(10px,1.2vw,12px);font-weight:500;letter-spacing:.08em;color:#534AB7;background:#fff;padding:6px 14px;border-radius:99px;border:0.5px solid #AFA9EC}
+.session-badge{font-size:clamp(10px,1.2vw,12px);font-weight:500;color:#534AB7}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.5rem,4vw,3rem) 0}
+.cover-kicker{font-size:clamp(11px,1.3vw,13px);font-weight:500;color:#534AB7;letter-spacing:.06em;margin-bottom:1rem;text-transform:none}
+.cover-title{font-size:clamp(26px,4.5vw,52px);font-weight:500;color:#26215C;line-height:1.15;margin-bottom:1.2rem;max-width:22ch}
+.cover-sub{font-size:clamp(13px,1.5vw,16px);color:#534AB7;line-height:1.6;max-width:48ch}
+.cover-footer{display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid #AFA9EC;padding-top:1.2rem}
+.cover-meta{font-size:clamp(11px,1.2vw,13px);color:#534AB7}
+.cover-dots{display:flex;gap:5px}
+.cdot{width:8px;height:8px;border-radius:50%;background:#AFA9EC}
+.cdot.f{background:#7F77DD}
+
+.slide-header{display:flex;align-items:center;gap:12px;margin-bottom:clamp(1.2rem,3vw,2rem)}
+.slide-pill{font-size:clamp(10px,1.1vw,11px);font-weight:500;letter-spacing:.07em;padding:5px 14px;border-radius:99px;background:#EEEDFE;color:#3C3489}
+.slide-q{font-size:clamp(18px,2.8vw,30px);font-weight:500;color:var(--color-text-primary);line-height:1.25;margin-bottom:.5rem;max-width:36ch}
+.slide-sub{font-size:clamp(12px,1.3vw,14px);color:var(--color-text-tertiary);margin-bottom:clamp(1.2rem,3vw,2rem)}
+.rule{height:0.5px;background:var(--color-border-tertiary);margin-bottom:clamp(1.2rem,3vw,2rem)}
+
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.5vw,14px);margin-bottom:clamp(1rem,2.5vw,1.8rem)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(8px,1.5vw,14px);margin-bottom:clamp(1rem,2.5vw,1.8rem)}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.5vw,14px);margin-bottom:clamp(1rem,2.5vw,1.8rem)}
+
+.scard{background:var(--color-background-secondary);border-radius:14px;padding:clamp(.9rem,2vw,1.3rem)}
+.scard-n{font-size:clamp(10px,1.1vw,11px);font-weight:500;color:#534AB7;margin-bottom:.6rem;letter-spacing:.05em}
+.scard-t{font-size:clamp(13px,1.4vw,15px);font-weight:500;color:var(--color-text-primary);margin-bottom:.4rem}
+.scard-d{font-size:clamp(11px,1.2vw,13px);color:var(--color-text-secondary);line-height:1.6}
+
+.bcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:14px;padding:clamp(.9rem,2vw,1.3rem)}
+.bcard-bar{height:3px;width:32px;border-radius:2px;margin-bottom:.8rem}
+.bar-p{background:#7F77DD}
+.bar-t{background:#1D9E75}
+.bcard-lbl{font-size:clamp(10px,1.1vw,11px);font-weight:500;color:var(--color-text-tertiary);letter-spacing:.05em;margin-bottom:.4rem}
+.bcard-v{font-size:clamp(12px,1.3vw,14px);color:var(--color-text-primary);line-height:1.6}
+
+.wcard{background:var(--color-background-secondary);border-radius:14px;padding:clamp(.9rem,2vw,1.3rem)}
+.wcard-ic{width:28px;height:28px;border-radius:8px;background:#E1F5EE;display:flex;align-items:center;justify-content:center;margin-bottom:.7rem}
+.wcard-ic svg{width:14px;height:14px}
+.wcard-t{font-size:clamp(12px,1.3vw,14px);font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem}
+.wcard-d{font-size:clamp(11px,1.2vw,13px);color:var(--color-text-secondary);line-height:1.55}
+
+.callout{background:#EEEDFE;border-radius:12px;padding:clamp(.8rem,2vw,1.1rem) clamp(1rem,2.5vw,1.4rem)}
+.callout p{font-size:clamp(12px,1.3vw,14px);color:#3C3489;line-height:1.65;font-weight:500}
+.callout2{background:#E1F5EE;border-radius:12px;padding:clamp(.8rem,2vw,1.1rem) clamp(1rem,2.5vw,1.4rem)}
+.callout2 p{font-size:clamp(12px,1.3vw,14px);color:#085041;line-height:1.65;font-weight:500}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:clamp(.8rem,2vw,1.1rem) clamp(1.5rem,4vw,3rem);border-top:0.5px solid var(--color-border-tertiary)}
+.ndots{display:flex;gap:5px;align-items:center}
+.ndot{height:6px;border-radius:3px;background:var(--color-border-secondary);cursor:pointer;transition:all .25s;width:6px}
+.ndot.on{background:#7F77DD;width:20px}
+.ncount{font-size:clamp(11px,1.2vw,13px);color:var(--color-text-tertiary)}
+.nbtns{display:flex;gap:8px}
+.nbtn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:clamp(5px,1vw,8px) clamp(12px,2vw,20px);font-size:clamp(11px,1.2vw,13px);color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-sans)}
+.nbtn:hover{background:var(--color-background-secondary)}
+.nbtn:disabled{opacity:.3;cursor:default}
+
+@media(max-width:600px){
+.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+
+<div class="deck">
+<div id="sl">
+
+  <div class="cover on" id="s0">
+    <div class="cover-top">
+      <span class="course-badge">Gestión de riesgos informáticos</span>
+      <span class="session-badge">Sesión 02</span>
+    </div>
+    <div class="cover-body">
+      <div class="cover-kicker">Tema de clase</div>
+      <h1 class="cover-title">Vulnerabilidades, desastres y gestión del riesgo</h1>
+      <p class="cover-sub">Análisis de vulnerabilidades y desastres en proyectos TI aplicando los procesos de gestión de riesgos según PMBOK en contextos organizacionales.</p>
+    </div>
+    <div class="cover-footer">
+      <span class="cover-meta">Ing. Mgtr. Carlos Alberto Castillo Catturini · UTP</span>
+      <div class="cover-dots"><div class="cdot f"></div><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+    </div>
+  </div>
+
+  <div class="slide" id="s1">
+    <div class="slide-header"><span class="slide-pill">Pregunta 1 de 2</span></div>
+    <div class="slide-q">¿Cómo podemos gestionar los riesgos en una organización?</div>
+    <div class="slide-sub">Gestionar riesgos implica seguir un ciclo continuo de cuatro etapas</div>
+    <div class="rule"></div>
+    <div class="g4">
+      <div class="scard"><div class="scard-n">Paso 01</div><div class="scard-t">Identificar</div><div class="scard-d">Reconocer activos, determinar su valor y descubrir vulnerabilidades y amenazas que los afectan.</div></div>
+      <div class="scard"><div class="scard-n">Paso 02</div><div class="scard-t">Evaluar</div><div class="scard-d">Analizar probabilidad e impacto. Clasificar en riesgos inherentes (sin controles) o residuales (con controles).</div></div>
+      <div class="scard"><div class="scard-n">Paso 03</div><div class="scard-t">Responder</div><div class="scard-d">Implementar medidas: evitar, mitigar, transferir o aceptar el riesgo según tolerancia organizacional.</div></div>
+      <div class="scard"><div class="scard-n">Paso 04</div><div class="scard-t">Monitorear</div><div class="scard-d">Vigilar continuamente el ciclo y actualizar estrategias ante el contexto cambiante de amenazas.</div></div>
+    </div>
+    <div class="callout"><p>"La gestión de riesgos no es una receta fija — requiere criterio profesional adaptado a la cultura y realidad de cada organización."</p></div>
+  </div>
+
+  <div class="slide" id="s2">
+    <div class="slide-header"><span class="slide-pill">Pregunta 1 · detalle</span></div>
+    <div class="slide-q">¿Qué tipos de vulnerabilidades se deben gestionar?</div>
+    <div class="slide-sub">Las organizaciones enfrentan vulnerabilidades en cuatro dimensiones clave</div>
+    <div class="rule"></div>
+    <div class="g2">
+      <div class="bcard"><div class="bcard-bar bar-p"></div><div class="bcard-lbl">Técnicas</div><div class="bcard-v">SO desactualizado, software sin parches, puertos abiertos, contraseñas débiles, protocolos inseguros.</div></div>
+      <div class="bcard"><div class="bcard-bar bar-p"></div><div class="bcard-lbl">De red</div><div class="bcard-v">WiFi sin cifrado, mala configuración de firewall, falta de segmentación VLAN, ataques Man-in-the-Middle.</div></div>
+      <div class="bcard"><div class="bcard-bar bar-t"></div><div class="bcard-lbl">Humanas</div><div class="bcard-v">Phishing, ingeniería social, compartir contraseñas, uso de USB desconocidos, falta de capacitación.</div></div>
+      <div class="bcard"><div class="bcard-bar bar-t"></div><div class="bcard-lbl">Organizacionales</div><div class="bcard-v">Sin políticas de seguridad, sin backups, acceso físico no controlado, sin plan de continuidad.</div></div>
+    </div>
+    <div class="callout2"><p>"La vulnerabilidad es la puerta abierta; la amenaza es quien entra. Cerrar la puerta es la gestión."</p></div>
+  </div>
+
+  <div class="slide" id="s3">
+    <div class="slide-header"><span class="slide-pill">Pregunta 2 de 2</span></div>
+    <div class="slide-q">¿Para qué es importante gestionar los riesgos en un proyecto?</div>
+    <div class="slide-sub">Según el PMBOK, gestionar riesgos en proyectos TI tiene seis beneficios clave</div>
+    <div class="rule"></div>
+    <div class="g3">
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="6" width="11" height="7" rx="1.5" stroke="#0F6E56" stroke-width="1.2"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="#0F6E56" stroke-width="1.2"/></svg></div>
+        <div class="wcard-t">Previene pérdidas</div>
+        <div class="wcard-d">Evita pérdidas económicas, humanas y materiales antes de que ocurran.</div>
+      </div>
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#0F6E56" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="wcard-t">Asegura continuidad</div>
+        <div class="wcard-d">El proyecto no se detiene ante eventos no planificados o desastres.</div>
+      </div>
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><path d="M2 10.5l3.5-5 2.5 2.5 4-6" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="wcard-t">Reduce costos</div>
+        <div class="wcard-d">Evita reparaciones costosas, retrasos y sobrecostos en la entrega final.</div>
+      </div>
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><path d="M7 1.5l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.5l-3.6 2 .7-4L1.2 5.8l4-.6z" stroke="#0F6E56" stroke-width="1.1"/></svg></div>
+        <div class="wcard-t">Genera confianza</div>
+        <div class="wcard-d">Clientes e inversionistas confían en organizaciones con madurez en riesgos.</div>
+      </div>
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="wcard-t">Aumenta valor</div>
+        <div class="wcard-d">Incrementa el impacto de eventos positivos y reduce el de negativos en el proyecto.</div>
+      </div>
+      <div class="wcard">
+        <div class="wcard-ic"><svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="2" stroke="#0F6E56" stroke-width="1.2"/><path d="M4.5 7l2 2 3-3.5" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="wcard-t">Alineación estratégica</div>
+        <div class="wcard-d">Los riesgos TI impactan directamente en los objetivos del negocio.</div>
+      </div>
+    </div>
+    <div class="callout2"><p>"Un proyecto preparado es un proyecto exitoso. Si falla la tecnología, falla el negocio."</p></div>
+  </div>
+
+</div>
+
+<div class="nav">
+  <div class="ndots" id="dots"></div>
+  <div class="ncount" id="cnt">1 / 4</div>
+  <div class="nbtns">
+    <button class="nbtn" id="pb" onclick="go(-1)" disabled>← Anterior</button>
+    <button class="nbtn" id="nb" onclick="go(1)">Siguiente →</button>
+  </div>
+</div>
+</div>
+
+<script>
+var cur=0,tot=4,ids=['s0','s1','s2','s3'];
+var dc=document.getElementById('dots');
+for(var i=0;i<tot;i++){var d=document.createElement('div');d.className='ndot'+(i===0?' on':'');d.dataset.i=i;d.onclick=function(){gt(+this.dataset.i)};dc.appendChild(d);}
+function gt(n){
+  var el=document.getElementById(ids[cur]);
+  el.classList.remove('on');
+  dc.children[cur].classList.remove('on');
+  cur=n;
+  var nel=document.getElementById(ids[cur]);
+  nel.classList.add('on');
+  dc.children[cur].classList.add('on');
+  document.getElementById('pb').disabled=cur===0;
+  document.getElementById('nb').disabled=cur===tot-1;
+  document.getElementById('cnt').textContent=(cur+1)+' / '+tot;
+}
+function go(d){gt(Math.max(0,Math.min(tot-1,cur+d)));}
+</script>
