@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Riesgos Informáticos — Repaso PC1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #131720;
+    --bg3: #1a1f2e;
+    --bg4: #1f2535;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --accent4: #f9c74f;
+    --accent5: #4cc9f0;
+    --text: #e8eaf2;
+    --text2: #9aa3b8;
+    --text3: #636b85;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --purple: rgba(108,99,255,0.15);
+    --teal: rgba(0,212,170,0.12);
+    --red: rgba(255,107,107,0.12);
+    --gold: rgba(249,199,79,0.12);
+    --blue: rgba(76,201,240,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,15,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 0; overflow-x: auto;
+  }
+  nav a {
+    color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500;
+    padding: 1rem 1rem; white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  nav a:hover { color: var(--text); }
+  nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* HEADER */
+  header {
+    padding: 5rem 2rem 4rem;
+    max-width: 960px; margin: 0 auto;
+    text-align: center;
+  }
+  .tag {
+    display: inline-block;
+    background: var(--purple); color: var(--accent);
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 100px; padding: 4px 16px;
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800; line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, #9aa3b8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
+  header p { color: var(--text2); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+  /* MAIN */
+  main { max-width: 960px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+  /* SECTIONS */
+  section { margin-bottom: 4rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem; font-weight: 700; color: var(--text);
+  }
+  .section-header .num {
+    font-size: 11px; font-weight: 600; color: var(--text3);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  /* CARDS GRID */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: .95rem; font-weight: 700; margin-bottom: .6rem;
+  }
+  .card p { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li {
+    font-size: 13px; color: var(--text2);
+    padding: 3px 0; display: flex; gap: 8px;
+  }
+  .card ul li::before { content: "—"; color: var(--text3); flex-shrink: 0; }
+
+  /* COLOR VARIANTS */
+  .card.purple { border-color: rgba(108,99,255,0.25); background: linear-gradient(135deg, var(--bg2), rgba(108,99,255,0.05)); }
+  .card.teal   { border-color: rgba(0,212,170,0.25); background: linear-gradient(135deg, var(--bg2), rgba(0,212,170,0.05)); }
+  .card.red    { border-color: rgba(255,107,107,0.25); background: linear-gradient(135deg, var(--bg2), rgba(255,107,107,0.05)); }
+  .card.gold   { border-color: rgba(249,199,79,0.25); background: linear-gradient(135deg, var(--bg2), rgba(249,199,79,0.05)); }
+  .card.blue   { border-color: rgba(76,201,240,0.25); background: linear-gradient(135deg, var(--bg2), rgba(76,201,240,0.05)); }
+
+  .card.purple .card-title { color: var(--accent); }
+  .card.teal   .card-title { color: var(--accent2); }
+  .card.red    .card-title { color: var(--accent3); }
+  .card.gold   .card-title { color: var(--accent4); }
+  .card.blue   .card-title { color: var(--accent5); }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 2px 10px; border-radius: 100px; margin-right: 4px; margin-bottom: 4px;
+    letter-spacing: .04em;
+  }
+  .badge-purple { background: var(--purple); color: var(--accent); border: 1px solid rgba(108,99,255,0.25); }
+  .badge-teal   { background: var(--teal); color: var(--accent2); border: 1px solid rgba(0,212,170,0.25); }
+  .badge-red    { background: var(--red); color: var(--accent3); border: 1px solid rgba(255,107,107,0.25); }
+  .badge-gold   { background: var(--gold); color: var(--accent4); border: 1px solid rgba(249,199,79,0.25); }
+  .badge-blue   { background: var(--blue); color: var(--accent5); border: 1px solid rgba(76,201,240,0.25); }
+
+  /* RELATION BOX */
+  .relation-box {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 14px; padding: 1.5rem 1.75rem;
+    font-family: 'DM Sans', sans-serif;
+    text-align: center; font-size: 1.05rem; color: var(--text2);
+    letter-spacing: .01em; margin-bottom: 1rem;
+  }
+  .relation-box strong { color: var(--text); }
+  .relation-box .arrow-text { color: var(--accent); font-weight: 600; margin: 0 8px; }
+
+  /* PMBOK STEPS */
+  .steps { display: flex; flex-direction: column; gap: .75rem; }
+  .step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem;
+    transition: border-color .2s;
+  }
+  .step:hover { border-color: var(--border2); }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    background: var(--purple); color: var(--accent);
+    border: 1px solid rgba(108,99,255,0.3);
+  }
+  .step-content h4 { font-family: 'Syne', sans-serif; font-size: .92rem; font-weight: 700; margin-bottom: .3rem; }
+  .step-content p { font-size: 13px; color: var(--text2); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: var(--bg3); padding: 10px 14px;
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--text2); text-align: left; letter-spacing: .06em;
+    text-transform: uppercase; border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 14px; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+  td:first-child { color: var(--text); font-weight: 500; }
+  td.cert { color: var(--accent2); font-size: 12px; font-weight: 600; }
+  td.no-cert { color: var(--text3); font-size: 12px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px; background: var(--border2); }
+  .tl-item { position: relative; margin-bottom: 1.5rem; }
+  .tl-dot {
+    position: absolute; left: -1.9rem; top: 5px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg3); border: 2px solid var(--accent);
+  }
+  .tl-item h4 { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700; margin-bottom: .25rem; }
+  .tl-item p { font-size: 13px; color: var(--text2); }
+
+  /* CASE STUDY */
+  .case-box {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+  }
+  .case-header {
+    padding: 1.2rem 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-header .dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .case-header h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+  .case-body { padding: 1.25rem 1.5rem; }
+  .case-body p { font-size: 13.5px; color: var(--text2); margin-bottom: .75rem; line-height: 1.65; }
+  .case-body p:last-child { margin-bottom: 0; }
+  .case-key {
+    background: var(--bg3); border-radius: 10px;
+    padding: .9rem 1.1rem; margin-top: 1rem;
+    font-size: 13px; color: var(--text2);
+    border-left: 3px solid var(--accent4);
+  }
+  .case-key strong { color: var(--accent4); }
+
+  /* HIGHLIGHT ROW */
+  .highlight-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.2rem; text-align: center;
+  }
+  .stat-card .num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+  .stat-card .lbl { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  /* QUIZ */
+  .quiz-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+  .quiz-q { font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700; margin-bottom: 1rem; }
+  .quiz-opts { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1rem; }
+  .quiz-opt {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; padding: .7rem 1rem;
+    cursor: pointer; font-size: 13.5px; color: var(--text2);
+    transition: background .15s, border-color .15s, color .15s;
+    display: flex; gap: 10px; align-items: center;
+  }
+  .quiz-opt:hover { background: var(--bg4); border-color: var(--border2); color: var(--text); }
+  .quiz-opt.correct { background: rgba(0,212,170,0.12); border-color: rgba(0,212,170,0.4); color: var(--accent2); }
+  .quiz-opt.wrong   { background: rgba(255,107,107,0.12); border-color: rgba(255,107,107,0.4); color: var(--accent3); }
+  .quiz-opt .opt-letter {
+    width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+    background: var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 12px; font-weight: 700; color: var(--text3);
+  }
+  .quiz-feedback { font-size: 13px; color: var(--text2); padding: .75rem 1rem; background: var(--bg3); border-radius: 10px; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+  .quiz-nav button {
+    background: var(--purple); color: var(--accent); border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 8px; padding: 6px 16px; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background .15s;
+  }
+  .quiz-nav button:hover { background: rgba(108,99,255,0.25); }
+  .quiz-progress { font-size: 12px; color: var(--text3); }
+
+  /* VUL TABS */
+  .tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tab-btn {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+    padding: 5px 14px; font-size: 12.5px; font-weight: 500; color: var(--text2);
+    cursor: pointer; transition: all .15s;
+  }
+  .tab-btn:hover { border-color: var(--border2); color: var(--text); }
+  .tab-btn.active { background: var(--purple); color: var(--accent); border-color: rgba(108,99,255,0.4); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .6rem; }
+  .vul-item {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: .7rem 1rem;
+    font-size: 13px; color: var(--text2); display: flex; gap: 8px; align-items: flex-start;
+  }
+  .vul-item::before { content: "▸"; color: var(--accent); font-size: 10px; margin-top: 3px; flex-shrink: 0; }
+
+  /* RISK MATRIX */
+  .matrix-wrap { overflow-x: auto; }
+  .matrix {
+    display: grid; grid-template-columns: 80px repeat(3, 1fr);
+    gap: 4px; min-width: 380px;
+  }
+  .m-cell {
+    border-radius: 8px; padding: .6rem .5rem;
+    text-align: center; font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .m-header { background: var(--bg3); color: var(--text2); font-size: 11px; border: 1px solid var(--border); }
+  .m-low    { background: rgba(0,212,170,0.15); color: var(--accent2); border: 1px solid rgba(0,212,170,0.25); }
+  .m-med    { background: rgba(249,199,79,0.15); color: var(--accent4); border: 1px solid rgba(249,199,79,0.25); }
+  .m-high   { background: rgba(255,107,107,0.15); color: var(--accent3); border: 1px solid rgba(255,107,107,0.25); }
+  .m-label  { background: transparent; color: var(--text3); font-size: 11px; text-align: right; padding-right: 8px; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 2rem; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) { nav a { padding: .75rem .7rem; font-size: 12px; } header { padding: 3rem 1.2rem 2.5rem; } main { padding: 0 1.2rem 4rem; } }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#conceptos" class="active">Conceptos</a>
+  <a href="#vulnerabilidades">Vulnerabilidades</a>
+  <a href="#marcos">Marcos</a>
+  <a href="#pmbok">PMBOK</a>
+  <a href="#necesidad">Necesidad</a>
+  <a href="#seguridad">Seguridad</a>
+  <a href="#casos">Casos reales</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<header>
+  <div class="tag">Repaso PC1</div>
+  <h1>Gestión de Riesgos Informáticos</h1>
+  <p>Todos los conceptos clave organizados para la primera práctica calificada. Ing. Mgtr. Carlos Castillo Catturini · UTP</p>
+</header>
+
+<main>
+
+<!-- BLOQUE 1: CONCEPTOS BASE -->
+<section id="conceptos">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">🔑</div>
+    <div><div class="num">Bloque 01</div><h2>Conceptos fundamentales</h2></div>
+  </div>
+
+  <div class="relation-box" style="margin-bottom:1rem">
+    <strong>Riesgo</strong>
+    <span class="arrow-text">=</span>
+    <strong>Amenaza</strong>
+    <span class="arrow-text">×</span>
+    <strong>Vulnerabilidad</strong>
+    <span class="arrow-text">×</span>
+    <strong>Impacto sobre el Activo</strong>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card purple">
+      <div class="card-title">Riesgo</div>
+      <p>Posibilidad de que una amenaza determinada <strong>explote las vulnerabilidades</strong> de los activos causando daño a la organización. No es el daño en sí, sino la <em>probabilidad</em> de que ocurra combinada con el <em>impacto</em>.</p>
+      <br>
+      <div><span class="badge badge-purple">Inherente</span> <span class="badge badge-teal">Residual</span> <span class="badge badge-blue">Positivo (oportunidad)</span></div>
+    </div>
+    <div class="card red">
+      <div class="card-title">Amenaza</div>
+      <p>Incidente nuevo o descubierto con <strong>potencial de dañar</strong> un sistema. Es un evento hipotético donde un atacante usa una vulnerabilidad. No es el daño; es el <em>agente o evento</em> que <em>podría</em> causar el daño.</p>
+      <br>
+      <div><span class="badge badge-red">Humana</span> <span class="badge badge-gold">Natural</span></div>
+    </div>
+    <div class="card gold">
+      <div class="card-title">Vulnerabilidad</div>
+      <p>Debilidad en un sistema, red o proceso que puede ser explotada por una amenaza. <strong>"La puerta abierta; la amenaza es quien entra."</strong> Es la debilidad en el activo que supone la ejecución de una posible explotación.</p>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Activo de información</div>
+      <p>Todo aquello que la organización desea proteger frente a cualquier riesgo o amenaza. Puede ser: datos, sistemas, software, hardware, personas, infraestructura de red o documentos físicos.</p>
+    </div>
+  </div>
+
+  <!-- CIA -->
+  <div class="section-header" style="margin-top:2.5rem">
+    <div class="section-icon" style="background:var(--blue)">🛡️</div>
+    <div><div class="num">Bloque 02</div><h2>Pilares de la Seguridad de la Información (CIA)</h2></div>
+  </div>
+  <div class="grid-3">
+    <div class="card blue">
+      <div class="card-title">Confidencialidad</div>
+      <p>Solo las personas autorizadas pueden acceder a la información. Protege contra accesos no autorizados.</p>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Integridad</div>
+      <p>La información no puede ser alterada sin autorización. Garantiza exactitud y completitud de los datos.</p>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Disponibilidad</div>
+      <p>La información y los sistemas deben estar accesibles cuando se necesiten. Previene interrupciones.</p>
+    </div>
+  </div>
+
+  <!-- TIPOS DE RIESGO -->
+  <div class="section-header" style="margin-top:2.5rem">
+    <div class="section-icon" style="background:var(--red)">⚡</div>
+    <div><div class="num">Bloque 03</div><h2>Tipos y categorías de riesgo</h2></div>
+  </div>
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="card-title" style="color:var(--text)">Por naturaleza</div>
+      <ul>
+        <li><strong style="color:var(--text)">Inherente</strong> — el riesgo sin ningún control aplicado</li>
+        <li><strong style="color:var(--text)">Residual</strong> — el que permanece después de aplicar controles</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--text)">Categorías empresariales</div>
+      <ul>
+        <li>Estratégico — decisiones mal alineadas</li>
+        <li>Ambiental — factores externos</li>
+        <li>De mercado — cambios en clientes/competencia</li>
+        <li>Crediticio — incumplimiento financiero</li>
+        <li>Operativo — fallas en procesos internos</li>
+        <li>De cumplimiento — incumplimiento normativo</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:var(--text2);font-size:13.5px;margin-bottom:1rem">Tipos específicos en TI según RISK IT:</p>
+  <div class="grid-2">
+    <div class="card purple">
+      <div class="card-title">I&T Benefit/Value Risk</div>
+      <p>TI no genera el valor esperado. Inversiones tecnológicas sin retorno.</p>
+    </div>
+    <div class="card red">
+      <div class="card-title">Program/Project Delivery Risk</div>
+      <p>Proyectos retrasados, sobrecostos, fallas en implementación.</p>
+    </div>
+    <div class="card gold">
+      <div class="card-title">IT Operations & Service Risk</div>
+      <p>Caídas de sistemas, fallas en servicios, mala gestión de infraestructura.</p>
+    </div>
+    <div class="card blue">
+      <div class="card-title">Cyber & Information Security Risk</div>
+      <p>Ataques informáticos, pérdida de datos, accesos no autorizados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VULNERABILIDADES TABULADAS -->
+<section id="vulnerabilidades">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--gold)">🔓</div>
+    <div><div class="num">Bloque 04</div><h2>Clasificación de vulnerabilidades</h2></div>
+  </div>
+  <div class="tabs" id="vul-tabs">
+    <button class="tab-btn active" onclick="showTab('vul-tecnicas',this)">Técnicas</button>
+    <button class="tab-btn" onclick="showTab('vul-red',this)">De red</button>
+    <button class="tab-btn" onclick="showTab('vul-humanas',this)">Humanas</button>
+    <button class="tab-btn" onclick="showTab('vul-org',this)">Organizacionales</button>
+    <button class="tab-btn" onclick="showTab('vul-web',this)">Aplicaciones web</button>
+  </div>
+  <div id="vul-tecnicas" class="tab-panel active">
+    <div class="vul-item">Sistemas operativos desactualizados</div>
+    <div class="vul-item">Software sin parches de seguridad</div>
+    <div class="vul-item">Puertos abiertos innecesarios</div>
+    <div class="vul-item">Contraseñas débiles (ej: 123456)</div>
+    <div class="vul-item">Uso de protocolos inseguros (Telnet, FTP)</div>
+  </div>
+  <div id="vul-red" class="tab-panel">
+    <div class="vul-item">Redes WiFi sin cifrado</div>
+    <div class="vul-item">Mala configuración de firewall</div>
+    <div class="vul-item">Falta de segmentación (sin VLAN)</div>
+    <div class="vul-item">Ataques Man-in-the-Middle</div>
+    <div class="vul-item">Sniffing de tráfico</div>
+  </div>
+  <div id="vul-humanas" class="tab-panel">
+    <div class="vul-item">Caer en phishing</div>
+    <div class="vul-item">Compartir contraseñas</div>
+    <div class="vul-item">Falta de capacitación</div>
+    <div class="vul-item">Uso de USB desconocidos</div>
+    <div class="vul-item">Ingeniería social</div>
+  </div>
+  <div id="vul-org" class="tab-panel">
+    <div class="vul-item">Falta de políticas de seguridad</div>
+    <div class="vul-item">No realizar backups</div>
+    <div class="vul-item">Acceso físico no controlado</div>
+    <div class="vul-item">Falta de plan de continuidad</div>
+    <div class="vul-item">No monitorear eventos de seguridad</div>
+  </div>
+  <div id="vul-web" class="tab-panel">
+    <div class="vul-item">Inyección SQL</div>
+    <div class="vul-item">Cross-Site Scripting (XSS)</div>
+    <div class="vul-item">Fallas de autenticación</div>
+    <div class="vul-item">Validación incorrecta de datos</div>
+    <div class="vul-item">Exposición de datos sensibles</div>
+  </div>
+
+  <!-- MATRIZ CUALITATIVA -->
+  <div style="margin-top:2rem">
+    <p style="font-size:13.5px;color:var(--text2);margin-bottom:.75rem">Matriz de análisis cualitativo — Probabilidad vs Impacto:</p>
+    <div class="matrix-wrap">
+      <div class="matrix">
+        <div class="m-cell m-header"></div>
+        <div class="m-cell m-header">Impacto Bajo</div>
+        <div class="m-cell m-header">Impacto Medio</div>
+        <div class="m-cell m-header">Impacto Alto</div>
+
+        <div class="m-cell m-label">Prob. Alta</div>
+        <div class="m-cell m-med">Medio</div>
+        <div class="m-cell m-high">Alto</div>
+        <div class="m-cell m-high">Crítico</div>
+
+        <div class="m-cell m-label">Prob. Media</div>
+        <div class="m-cell m-low">Bajo</div>
+        <div class="m-cell m-med">Medio</div>
+        <div class="m-cell m-high">Alto</div>
+
+        <div class="m-cell m-label">Prob. Baja</div>
+        <div class="m-cell m-low">Mínimo</div>
+        <div class="m-cell m-low">Bajo</div>
+        <div class="m-cell m-med">Medio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCOS -->
+<section id="marcos">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--teal)">📐</div>
+    <div><div class="num">Bloque 05</div><h2>Marcos de trabajo, normas y estándares</h2></div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:1.25rem">
+    <div class="card teal">
+      <div class="card-title">Buenas prácticas</div>
+      <p>Actividades de propósito específico que han probado ser útiles en diferentes escenarios. Aceptadas por profesionales del campo.</p>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Marco de trabajo (Framework)</div>
+      <p>Conjunto de conceptos, buenas prácticas y criterios para enfocar un tipo de problemática. Sirve como referencia para resolver situaciones similares.</p>
+    </div>
+    <div class="card gold">
+      <div class="card-title">Norma o Estándar</div>
+      <p>Documento emitido por un organismo (ISO, ANSI) con implementación <strong>obligatoria</strong> según aplicabilidad.</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Estándar / Marco</th>
+          <th>Tipo</th>
+          <th>Descripción clave</th>
+          <th>Certificable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ISO 31000</td>
+          <td><span class="badge badge-gold">Norma</span></td>
+          <td>Directrices y principios para gestionar el riesgo. Válida para cualquier organización, cualquier sector.</td>
+          <td class="no-cert">No</td>
+        </tr>
+        <tr>
+          <td>ISO/IEC 27005</td>
+          <td><span class="badge badge-gold">Norma</span></td>
+          <td>Directrices específicas para gestión de riesgos de seguridad de la información.</td>
+          <td class="no-cert">No (complementa 27001)</td>
+        </tr>
+        <tr>
+          <td>ISO/IEC 27001</td>
+          <td><span class="badge badge-gold">Norma</span></td>
+          <td>Protección de datos, cumplimiento de auditorías, evitar sanciones.</td>
+          <td class="cert">Sí</td>
+        </tr>
+        <tr>
+          <td>ISO 22301</td>
+          <td><span class="badge badge-gold">Norma</span></td>
+          <td>Continuidad de negocio. Garantiza que la organización pueda operar ante desastres.</td>
+          <td class="cert">Sí</td>
+        </tr>
+        <tr>
+          <td>NIST SP 800-39</td>
+          <td><span class="badge badge-teal">Guía</span></td>
+          <td>Managing Information Security Risk — guía del NIST para gestión del riesgo a nivel organizacional.</td>
+          <td class="no-cert">No</td>
+        </tr>
+        <tr>
+          <td>COSO ERM</td>
+          <td><span class="badge badge-purple">Marco</span></td>
+          <td>5 componentes: Ambiente de Control, Evaluación de Riesgos, Actividades de Control, Información y Comunicación, Monitoreo.</td>
+          <td class="no-cert">No</td>
+        </tr>
+        <tr>
+          <td>RISK IT (ISACA)</td>
+          <td><span class="badge badge-purple">Marco</span></td>
+          <td>2da edición (2020). Gestión del ciclo de vida de riesgos de I&T. Alineado con COSO ERM e ISO 31000. Promueve risk culture.</td>
+          <td class="no-cert">No</td>
+        </tr>
+        <tr>
+          <td>PMBOK (PMI)</td>
+          <td><span class="badge badge-teal">Guía</span></td>
+          <td>Estándar para gestión de proyectos. Incluye 6 procesos de gestión de riesgos en proyectos.</td>
+          <td class="no-cert">Asociado a PMP</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:1rem; border-left:3px solid var(--accent5);">
+    <div class="card-title" style="color:var(--accent5)">Alcance de RISK IT — idea clave</div>
+    <p>Los riesgos de TI <strong>no son aislados</strong>: forman parte del riesgo empresarial (Enterprise Risk). Un ataque informático no es solo un problema técnico, <strong>es un problema empresarial</strong>. Si falla la tecnología, falla el negocio.</p>
+  </div>
+
+  <!-- Desastre -->
+  <div style="margin-top:1.5rem">
+    <div class="card red">
+      <div class="card-title">¿Qué es un desastre?</div>
+      <p>Evento calamitoso, repentino o previsible, que trastorna seriamente el funcionamiento de una comunidad, causando pérdidas humanas, materiales, económicas o ambientales que <strong>desbordan la capacidad</strong> de la comunidad para hacer frente con sus propios recursos. Pueden ser naturales o provocados por el hombre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PMBOK -->
+<section id="pmbok">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">📋</div>
+    <div><div class="num">Bloque 06</div><h2>Los 6 procesos de gestión del riesgo — PMBOK</h2></div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.25rem">
+    <p><strong style="color:var(--text)">¿Qué es un proyecto según PMBOK?</strong> Esfuerzo temporal para crear un producto, servicio o resultado único. Tiene inicio y fin definidos. Se puede terminar cuando se alcanzan los objetivos, cuando no pueden cumplirse, o cuando ya no existe la necesidad.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Planificar la Gestión del Riesgo</h4>
+        <p>Definir cómo realizar las actividades de gestión de riesgos del proyecto. Asegura que el nivel, tipo y visibilidad sean acordes con la importancia del proyecto para la organización.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Identificar los Riesgos</h4>
+        <p>Determinar los riesgos que pueden afectar al proyecto y documentar sus características. El beneficio es el conocimiento que confiere al equipo para anticipar eventos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Análisis Cualitativo del Riesgo</h4>
+        <p>Priorizar riesgos evaluando la probabilidad de ocurrencia e impacto (Alto / Medio / Bajo). Permite concentrarse en los riesgos de alta prioridad reduciendo incertidumbre.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Análisis Cuantitativo del Riesgo</h4>
+        <p>Analizar numéricamente el efecto de los riesgos sobre los objetivos del proyecto. Genera información cuantitativa para apoyar la toma de decisiones.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Planificar la Respuesta al Riesgo</h4>
+        <p>Desarrollar opciones y acciones para mejorar oportunidades y reducir amenazas. Introduce recursos y actividades en el presupuesto y cronograma según la prioridad de cada riesgo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Controlar los Riesgos</h4>
+        <p>Implementar planes de respuesta, dar seguimiento a riesgos identificados, monitorear residuales, identificar nuevos riesgos y evaluar la efectividad del proceso durante todo el ciclo de vida.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NECESIDAD -->
+<section id="necesidad">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--teal)">⚙️</div>
+    <div><div class="num">Bloque 07</div><h2>Necesidad de administrar los riesgos de TI</h2></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent)">1. Reducir la incertidumbre</div>
+      <p>Toda organización enfrenta eventos inciertos (fallas, ataques, errores). La gestión permite anticiparse y disminuir la probabilidad e impacto.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent2)">2. Proteger activos críticos</div>
+      <p>Evita pérdida de datos, interrupciones y accesos no autorizados a información, sistemas e infraestructura.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent5)">3. Garantizar continuidad operativa</div>
+      <p>Sin gestión, los servicios pueden caer y las operaciones detenerse. Con gestión se implementan planes de contingencia.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent4)">4. Apoyar la toma de decisiones</div>
+      <p>Permite decidir con base en impacto y probabilidad: ¿invertir en seguridad? ¿aceptar un riesgo? ¿transferirlo?</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent3)">5. Cumplimiento normativo</div>
+      <p>Normas como ISO/IEC 27001 e ISO 22301 exigen gestión de riesgos para proteger datos, cumplir auditorías y evitar sanciones.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent)">6. Optimizar recursos</div>
+      <p>No todo riesgo se elimina. Se prioriza lo más crítico y probable, evitando gastar recursos innecesarios.</p>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent2)">7. Prevenir pérdidas económicas</div>
+      <p>Un riesgo no gestionado puede generar pérdidas financieras, daño reputacional y multas legales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEGURIDAD -->
+<section id="seguridad">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--blue)">🔒</div>
+    <div><div class="num">Bloque 08</div><h2>Seguridad de la información</h2></div>
+  </div>
+  <div class="card" style="margin-bottom:1.25rem; border-left:3px solid var(--accent5)">
+    <div class="card-title" style="color:var(--accent5)">Definición</div>
+    <p>Conjunto de medidas y técnicas utilizadas para <strong>controlar y salvaguardar</strong> todos los datos que se manejan dentro de la organización y asegurar que los datos no salgan del sistema establecido.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card blue">
+      <div class="card-title">Protección de la información</div>
+      <p>Los riesgos informáticos pueden poner en riesgo información confidencial y crítica. La administración ayuda a proteger de accesos no autorizados, robos, pérdidas y filtraciones.</p>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Continuidad de negocio</div>
+      <p>Los riesgos informáticos pueden causar interrupciones en sistemas y servicios críticos. La administración garantiza que estén disponibles y sean confiables.</p>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Cumplimiento regulatorio</div>
+      <p>Muchas industrias tienen requisitos regulatorios específicos en relación con la seguridad de la información que deben cumplirse.</p>
+    </div>
+    <div class="card gold">
+      <div class="card-title">Reputación de la organización</div>
+      <p>Una violación de seguridad puede disminuir la confianza de clientes y socios. La administración minimiza el riesgo de brechas que afecten la reputación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASOS REALES -->
+<section id="casos">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--red)">📰</div>
+    <div><div class="num">Bloque 09</div><h2>Casos reales analizados en clase</h2></div>
+  </div>
+
+  <div class="highlight-row" style="margin-bottom:1.5rem">
+    <div class="stat-card"><div class="num" style="color:var(--accent3)">3,900</div><div class="lbl">vuelos cancelados/retrasados</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--accent4)">$20M</div><div class="lbl">impacto económico estimado</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--accent)">32,768</div><div class="lbl">cambios que colapsaron el sistema</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--accent2)">5 días</div><div class="lbl">para restablecer el sistema</div></div>
+  </div>
+
+  <div class="case-box" style="margin-bottom:1.5rem">
+    <div class="case-header">
+      <div class="dot" style="background:var(--accent3)"></div>
+      <h3>Caso ComAir — Delta Airlines (EE.UU., 2004)</h3>
+    </div>
+    <div class="case-body">
+      <p>La unidad de Delta Airlines, ComAir, sufrió la cancelación/retraso de 3,900 vuelos afectando a 20,000 pasajeros en Navidad. El sistema de programación de vuelos tenía un data field diseñado para soportar solo 32,767 cambios por mes.</p>
+      <p>El 24 de diciembre a las 10 PM un empleado intentó realizar el cambio número 32,768 y el sistema colapsó. El sistema no tenía copias de respaldo: el reinicio fue total y no se restableció sino hasta el 29 de diciembre.</p>
+      <p>El riesgo había sido identificado en 1997 cuando el CIO entró a la compañía, pero la decisión de migrar el sistema no se tomó a tiempo. Impacto: ~$20 millones, salida del CEO y gravísimo daño reputacional.</p>
+      <div class="case-key">
+        <strong>Lecciones clave:</strong> No se tenía institucionalizado el riesgo de TI como riesgo operacional. La visión corporativa no consideraba relevante el gobierno de TI. La falta de backups agravó el impacto.
+      </div>
+    </div>
+  </div>
+
+  <div class="case-box">
+    <div class="case-header">
+      <div class="dot" style="background:var(--accent4)"></div>
+      <h3>Caso DIRIN-PNP (Perú, septiembre 2025)</h3>
+    </div>
+    <div class="case-body">
+      <p>La Dirección de Inteligencia de la Policía Nacional del Perú fue vulnerada y su información sensible filtrada en plataformas como Telegram. Se expuso: información de agentes, planes de seguridad presidencial y documentos de inteligencia.</p>
+      <p>El incidente evidenció debilidades en la seguridad de los sistemas del Estado peruano. Se generó debate sobre si fue un hackeo externo o una filtración interna (vulnerabilidad humana organizacional).</p>
+      <div class="case-key">
+        <strong>Riesgos identificados:</strong> acceso no autorizado a sistemas, vulnerabilidades organizacionales (políticas de seguridad débiles), posible vulnerabilidad humana interna, y falta de controles de acceso a información clasificada.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">🧠</div>
+    <div><div class="num">Bloque 10</div><h2>Quiz de repaso interactivo</h2></div>
+  </div>
+  <div class="quiz-wrap">
+    <div id="quiz-container"></div>
+    <div class="quiz-nav">
+      <button onclick="prevQ()">← Anterior</button>
+      <span class="quiz-progress" id="quiz-prog">1 / 10</span>
+      <button onclick="nextQ()">Siguiente →</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Gestión de Riesgos Informáticos · UTP · Ing. Mgtr. Carlos Castillo Catturini · Repaso PC1
+</footer>
+
+<script>
+// TABS
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// NAV ACTIVE
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+cur);
+  });
+});
+
+// QUIZ
+const questions = [
+  { q: "¿Cuál es la definición correcta de RIESGO?", opts: ["Un evento que ya causó daño al sistema","La posibilidad de que una amenaza explote una vulnerabilidad causando daño","Una debilidad en el sistema que puede ser explotada","Un atacante que intenta ingresar al sistema"], ans: 1, fb: "El riesgo es la POSIBILIDAD (probabilidad × impacto). No es el daño en sí." },
+  { q: "Una empresa tiene WiFi abierta sin contraseña. Esto es:", opts: ["Una amenaza","Un riesgo","Una vulnerabilidad de red","Un activo"], ans: 2, fb: "La WiFi sin contraseña es una VULNERABILIDAD (debilidad). La amenaza sería alguien que la explota." },
+  { q: "¿Qué estándar ISO NO es certificable?", opts: ["ISO/IEC 27001","ISO 22301","ISO 31000","Ninguno, todos son certificables"], ans: 2, fb: "ISO 31000 es una guía estratégica y NO es certificable. ISO 27001 y ISO 22301 sí lo son." },
+  { q: "En el PMBOK, ¿en qué proceso se asigna probabilidad Alta/Media/Baja a los riesgos?", opts: ["Identificar los riesgos","Planificar la respuesta al riesgo","Análisis cuantitativo","Análisis cualitativo"], ans: 3, fb: "El ANÁLISIS CUALITATIVO prioriza los riesgos combinando probabilidad e impacto (Alto/Medio/Bajo)." },
+  { q: "RISK IT fue publicado por:", opts: ["PMI (Project Management Institute)","ISO (International Organization for Standardization)","ISACA (segunda edición, 2020)","NIST (National Institute of Standards and Technology)"], ans: 2, fb: "RISK IT es un marco de trabajo publicado por ISACA, actualmente en su segunda edición (2020)." },
+  { q: "El caso ComAir (2004) se produjo porque:", opts: ["Un hacker externo atacó el sistema","El data field solo soportaba 32,767 cambios/mes y se superó ese límite","Un empleado borró la base de datos intencionalmente","El sistema no tenía antivirus"], ans: 1, fb: "El 24 de diciembre, al intentar el cambio número 32,768, el sistema colapsó. Era un límite técnico conocido desde 1997." },
+  { q: "¿Cuál NO es un pilar del triángulo CIA de seguridad de la información?", opts: ["Confidencialidad","Integridad","Autenticación","Disponibilidad"], ans: 2, fb: "Los tres pilares CIA son: Confidencialidad, Integridad y Disponibilidad. La autenticación es un control, no un pilar." },
+  { q: "Un ataque de ingeniería social es un ejemplo de vulnerabilidad:", opts: ["Técnica","De red","Humana","En aplicaciones web"], ans: 2, fb: "La ingeniería social explota la VULNERABILIDAD HUMANA (engaño, manipulación de personas)." },
+  { q: "El proceso de CONTROLAR LOS RIESGOS en PMBOK sirve para:", opts: ["Identificar por primera vez los riesgos del proyecto","Implementar planes de respuesta y monitorear riesgos durante todo el ciclo de vida","Calcular numéricamente el costo de cada riesgo","Definir cómo se van a gestionar los riesgos"], ans: 1, fb: "Controlar los Riesgos implementa los planes de respuesta, monitorea residuales e identifica nuevos riesgos." },
+  { q: "¿Cuál es la diferencia entre un framework y una norma?", opts: ["Son lo mismo, se usan de forma intercambiable","Un framework es un conjunto de buenas prácticas/guía; una norma es emitida por organismo oficial y puede ser obligatoria","Una norma siempre es gratuita; un framework siempre es de pago","Un framework es certificable; una norma no lo es"], ans: 1, fb: "El FRAMEWORK es guía orientadora. La NORMA/ESTÁNDAR es emitida por ISO, ANSI, etc. y puede ser de implementación obligatoria." }
+];
+
+let curr = 0, answered = [];
+
+function renderQ() {
+  const q = questions[curr];
+  const a = answered[curr];
+  document.getElementById('quiz-prog').textContent = (curr+1) + ' / ' + questions.length;
+  document.getElementById('quiz-container').innerHTML = `
+    <p class="quiz-q">${q.q}</p>
+    <div class="quiz-opts">
+      ${q.opts.map((o,i) => `
+        <div class="quiz-opt ${a!==undefined ? (i===q.ans ? 'correct' : (i===a && a!==q.ans ? 'wrong' : '')) : ''}"
+             onclick="${a===undefined ? 'answer('+i+')' : ''}" style="${a!==undefined?'cursor:default':''}">
+          <span class="opt-letter">${'ABCD'[i]}</span>${o}
+        </div>`).join('')}
+    </div>
+    <div class="quiz-feedback ${a!==undefined ? 'show' : ''}">
+      ${a!==undefined ? (a===q.ans ? '✓ Correcto. ' : '✗ Incorrecto. ') + q.fb : ''}
+    </div>`;
+}
+
+function answer(i) {
+  if (answered[curr] !== undefined) return;
+  answered[curr] = i;
+  renderQ();
+}
+function nextQ() { if (curr < questions.length-1) { curr++; renderQ(); } }
+function prevQ() { if (curr > 0) { curr--; renderQ(); } }
+
+renderQ();
+</script>
+</body>
+</html>
